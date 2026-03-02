@@ -1,0 +1,78 @@
+/* ── Custom D&D Wild Shape Tracker styles ── */
+
+/* Body & typography */
+body {
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+/* Navbar brand */
+.navbar-brand {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+/* Card header accent */
+.card-header.bg-success {
+    background-color: #2e7d32 !important;
+}
+
+/* Wild Shape use pips */
+#usesDisplay {
+    font-size: 3rem;
+    line-height: 1;
+}
+
+.use-pip {
+    transition: color 0.2s ease, transform 0.15s ease;
+}
+
+.use-pip.available {
+    color: #2e7d32;
+}
+
+.use-pip.used {
+    color: #bdbdbd;
+}
+
+.use-pip.available:hover {
+    transform: scale(1.1);
+}
+
+/* Beast table */
+#beastTableBody tr {
+    transition: background-color 0.1s ease;
+}
+
+/* Range slider accent */
+.form-range::-webkit-slider-thumb {
+    background: #2e7d32;
+}
+.form-range::-moz-range-thumb {
+    background: #2e7d32;
+}
+
+/* Footer */
+footer {
+    background-color: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+    margin-top: auto;
+}
+
+/* Responsive tweaks */
+@media (max-width: 575.98px) {
+    #usesDisplay {
+        font-size: 2.5rem;
+    }
+
+    .table-responsive .badge {
+        font-size: 0.7rem;
+    }
+}

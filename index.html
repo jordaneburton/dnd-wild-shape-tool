@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D&amp;D Wild Shape Tracker</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="vendor/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet">
+    <!-- Custom styles -->
+    <link href="css/styles.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<!-- ── Navbar ── -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <i class="bi bi-feather me-2"></i>Wild Shape Tracker
+        </a>
+        <span class="navbar-text text-secondary small">D&amp;D 5e Druid Tool</span>
+    </div>
+</nav>
+
+<!-- ── Main content ── -->
+<div class="container py-4">
+    <div class="row g-4">
+
+        <!-- ── Left column: setup + tracker ── -->
+        <div class="col-lg-4">
+
+            <!-- Character Setup -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-success text-white">
+                    <i class="bi bi-person-circle me-2"></i>Character Setup
+                </div>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="charName" class="form-label fw-semibold">Character Name</label>
+                        <input type="text" class="form-control" id="charName"
+                               placeholder="Enter name…" value="My Druid">
+                    </div>
+                    <div class="mb-3">
+                        <label for="levelRange" class="form-label fw-semibold">
+                            Druid Level
+                            <span class="badge bg-success ms-1" id="levelBadge">2</span>
+                        </label>
+                        <input type="range" class="form-range" id="levelRange"
+                               min="2" max="20" value="2">
+                        <div class="d-flex justify-content-between text-muted small">
+                            <span>2</span><span>20</span>
+                        </div>
+                    </div>
+                    <div class="mb-1">
+                        <label for="circleSelect" class="form-label fw-semibold">Druid Circle</label>
+                        <select class="form-select" id="circleSelect">
+                            <option value="land">Circle of the Land</option>
+                            <option value="moon">Circle of the Moon</option>
+                            <option value="dreams">Circle of Dreams</option>
+                            <option value="shepherd">Circle of the Shepherd</option>
+                            <option value="spores">Circle of Spores</option>
+                            <option value="stars">Circle of Stars</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Wild Shape Uses -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-success text-white">
+                    <i class="bi bi-arrow-repeat me-2"></i>Wild Shape Uses
+                </div>
+                <div class="card-body text-center">
+                    <div id="usesDisplay" class="mb-2 d-flex justify-content-center gap-3"></div>
+                    <p class="text-muted small mb-3" id="usesText">2 / 2 uses remaining</p>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-success" id="useBtn" onclick="useWildShape()">
+                            <i class="bi bi-magic me-2"></i>Use Wild Shape
+                        </button>
+                        <button class="btn btn-outline-secondary" onclick="shortRest()">
+                            <i class="bi bi-moon-stars me-2"></i>Short Rest (Restore All)
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Current Limits -->
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white">
+                    <i class="bi bi-info-circle me-2"></i>Current Limits
+                </div>
+                <div class="card-body p-0">
+                    <ul class="list-group list-group-flush" id="limitsList"></ul>
+                </div>
+            </div>
+
+        </div><!-- /col -->
+
+        <!-- ── Right column: beast forms ── -->
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                    <span><i class="bi bi-table me-2"></i>Beast Forms</span>
+                    <span class="badge bg-white text-success" id="formCount"></span>
+                </div>
+                <div class="card-body">
+
+                    <!-- Filters row -->
+                    <div class="row g-2 mb-3 align-items-center">
+                        <div class="col-sm-6">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox"
+                                       id="showOnlyAvailable" checked>
+                                <label class="form-check-label" for="showOnlyAvailable">
+                                    Show only available forms
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="search" class="form-control form-control-sm"
+                                   id="searchInput" placeholder="Search beasts…">
+                        </div>
+                    </div>
+
+                    <!-- Beast table -->
+                    <div class="table-responsive">
+                        <table class="table table-hover table-sm align-middle mb-0">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>CR</th>
+                                    <th>HP</th>
+                                    <th>AC</th>
+                                    <th>Speed</th>
+                                    <th>Movement</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="beastTableBody"></tbody>
+                        </table>
+                    </div>
+
+                    <p class="text-muted small mt-2 mb-0">
+                        <i class="bi bi-exclamation-circle me-1"></i>
+                        Beast statistics are provided for quick reference (D&amp;D 5e SRD).
+                        Always verify with official sources.
+                    </p>
+                </div>
+            </div>
+        </div><!-- /col -->
+
+    </div><!-- /row -->
+</div><!-- /container -->
+
+<footer class="text-center py-3 text-muted small">
+    Wild Shape Tracker &bull; A fan-made reference tool for D&amp;D 5th Edition &bull;
+    Not affiliated with Wizards of the Coast
+</footer>
+
+<!-- Bootstrap 5 JS bundle -->
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- App logic -->
+<script src="js/app.js"></script>
+
+</body>
+</html>
